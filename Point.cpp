@@ -20,7 +20,12 @@ public:
     double get_coord_y(){
         return this->coord_y;
     }
-
+    void set_coord_x(double x){
+        this->coord_x = x;
+    }
+    void set_coord_y(double y){
+        this->coord_y = y;
+    }
     int get_id_c() {
         return id_c; //id of cluster;
     }
