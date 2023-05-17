@@ -1,3 +1,0 @@
-C:/Progetti/MeanShift/cmake-build-debug/CMakeFiles/MeanShift.dir
-C:/Progetti/MeanShift/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Progetti/MeanShift/cmake-build-debug/CMakeFiles/rebuild_cache.dir
