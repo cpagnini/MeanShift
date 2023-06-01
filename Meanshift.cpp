@@ -1,7 +1,7 @@
 #include <cmath>
 #include <fstream>
 #include <chrono>
-#include "/content/drive/My Drive/Parallel/Meanshift/Point.h"
+#include "Point.h"
 #include <omp.h>
 #include<vector>
 #include<iterator>
@@ -21,7 +21,7 @@ int main() {
     auto start = std::chrono::system_clock::now();
     int num_threads;
     num_threads = 2;
-    const string fname ="/"/content/drive/My Drive/Parallel/Meanshift/2D_data_1000.csv";
+    const string fname = "C:\\Progetti\\MeanShift\\datasets\\2D_data_100.csv";
     int max_iterations = 10;
     int current_iterations = 0;
     int lambda = 1;
@@ -51,11 +51,22 @@ int main() {
     auto end = std::chrono::system_clock::now();
     double duration = chrono::duration_cast<chrono::milliseconds>(end-start).count();
 
+    string output;
+    output = "Nr Threads: " + std::to_string(num_threads) + " Total milliseconds: " + std::to_string(duration) + "\n";
 
+    // Open the file in output mode
+    std::ofstream outputFile("Result.txt", std::ios::app);
 
-    cout<<"Total milliseconds: "<< duration<< endl;
-    //outfile<<"Dataset: "<<fname<<endl<<"Num clusters: "<<centroidsNonZero.size()<<endl<<"Num iterations: "<<current_iterations<<endl<<"Num threads: "<<num_threads<<endl<<"Total milliseconds: "<<duration<<endl;
-    
+    // Check if the file was opened successfully
+    if (outputFile.is_open())
+    {
+        // Write the string to the file
+        outputFile << output;
+
+        // Close the file
+        outputFile.close();
+    }
+
     return 0;
 }
 
@@ -120,15 +131,11 @@ void mean_shift(vector<Point> &points, vector<Point> &new_points, int lambda, bo
                 }
             }
 
-
-
             if (weight> 0) {
                 new_coord_x /= weight;
                 new_coord_y /= weight;
                 Point pt(new_coord_x, new_coord_y);
                 new_points.push_back(pt);
-
-
             }
     }
 
