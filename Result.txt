@@ -1,1 +1,4 @@
 
+Nr Threads: 2 Total milliseconds: 1244.000000
+Nr Threads: 2 Total milliseconds: 118098.000000
+Nr Threads: 6 Total milliseconds: 60071.000000
