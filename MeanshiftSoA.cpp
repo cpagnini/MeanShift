@@ -8,18 +8,18 @@
 #include "PointSoA.h"
 #include <omp.h>
 
+
 using namespace std;
 using namespace std::chrono;
 
 PointSoA initialize_points(const string &fname);
 void mean_shift(PointSoA &points, PointSoA &new_points, int lambda, bool &isShifting);
-void draw_chart_gnu(PointSoA &points);
 
 int main()
 {
     auto start = std::chrono::system_clock::now();
     int num_threads = 6;
-    const string fname = "C:\\Progetti\\MeanShift\\datasets\\2D_data_10000.csv";
+    const string fname = "C:\\Progetti\\MeanShift\\datasets\\2D_data_1000.csv";
     int max_iterations = 10;
     int current_iterations = 0;
     int lambda = 1;
@@ -78,7 +78,6 @@ PointSoA initialize_points(const string &fname)
             double coord_y = stod(column);
             points.x_coord.push_back(coord_x);
             points.y_coord.push_back(coord_y);
-            points.cluster_id.push_back(0); // Set initial cluster ID to 0
         }
         file.close();
     }
@@ -119,6 +118,6 @@ void mean_shift(PointSoA &points, PointSoA &new_points, int lambda, bool &isShif
 
         new_points.x_coord[i] = new_coord_x;
         new_points.y_coord[i] = new_coord_y;
-        new_points.cluster_id[i] = points.cluster_id[i];
     }
 }
+

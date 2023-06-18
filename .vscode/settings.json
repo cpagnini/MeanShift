@@ -2,6 +2,7 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "*.embeddedhtml": "html",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "chrono": "cpp"
     }
 }
