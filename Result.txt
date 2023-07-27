@@ -1,0 +1,25 @@
+AoS -- Nr Threads: 6 Total milliseconds: 21.000000
+AoS -- Nr Threads: 6 Total milliseconds: 21.000000
+AoS -- Nr Threads: 6 Total milliseconds: 21.000000
+
+AoS -- Nr Threads: 6 Total milliseconds: 498.000000
+AoS -- Nr Threads: 6 Total milliseconds: 482.000000
+AoS -- Nr Threads: 6 Total milliseconds: 463.000000
+
+AoS -- Nr Threads: 6 Total milliseconds: 40032.000000
+AoS -- Nr Threads: 6 Total milliseconds: 40072.000000
+AoS -- Nr Threads: 6 Total milliseconds: 39793.000000
+
+AoS -- Nr Threads: 6 Total milliseconds: 4 031 578.000000
+
+Seq 100 Total milliseconds: 16.000000
+Seq 1000 Total milliseconds: 1178.000000
+Seq 10000 Total milliseconds: 112966.000000
+Seq 100000 Total milliseconds: 11 175 633.000000
+
+
+
+SOA -Nr Threads: 6 Total milliseconds: 17.000000
+SOA -Nr Threads: 6 Total milliseconds: 399.000000
+SOA -Nr Threads: 6 Total milliseconds: 35188.000000
+SOA -Nr Threads: 6 Total milliseconds: 3 467 315.000000

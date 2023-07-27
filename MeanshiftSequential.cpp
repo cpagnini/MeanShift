@@ -1,8 +1,7 @@
 #include <cmath>
 #include <fstream>
 #include <chrono>
-#include "Point.h"
-#include <omp.h>
+#include "PointAoS.h"
 #include<vector>
 #include<iterator>
 #include <sstream>
@@ -19,14 +18,10 @@ void draw_chart_gnu(vector<Point> &points);
 
 int main() {
     auto start = std::chrono::system_clock::now();
-    int num_threads;
-    num_threads = 2;
-    const string fname = "C:\\Progetti\\MeanShift\\datasets\\2D_data_100.csv";
+    const string fname = "C:\\Progetti\\MeanShift\\datasets\\2D_data_100000.csv";
     int max_iterations = 10;
     int current_iterations = 0;
     int lambda = 1;
-    omp_set_num_threads(num_threads);
-
     bool isShifting = true;
 
     vector<Point> points;
@@ -34,6 +29,7 @@ int main() {
     vector<Point> new_pointsNonZero;
 
     points = initalize_points(fname);
+    new_points = initalize_points(fname);
 
     while(current_iterations<max_iterations && isShifting==true) {
         current_iterations++;
@@ -52,7 +48,7 @@ int main() {
     double duration = chrono::duration_cast<chrono::milliseconds>(end-start).count();
 
     string output;
-    output = "Nr Threads: " + std::to_string(num_threads) + " Total milliseconds: " + std::to_string(duration) + "\n";
+    output = "AoS -- Nr Threads: " + std::to_string(num_threads) + " Total milliseconds: " + std::to_string(duration) + "\n";
 
     // Open the file in output mode
     std::ofstream outputFile("Result.txt", std::ios::app);
@@ -97,12 +93,12 @@ vector <Point> initalize_points(string fname){
 
     }
     int size = content.size();
-    for(int i=0;i<content.size(); i++){
+    for (int i = 0; i < size; i++)
+    {
         double coord_x = std::stod(content[i][0]);
         double coord_y = std::stod(content[i][1]);
         Point pt (coord_x,coord_y );
         points.push_back(pt);
-
     }
     return points;
 }
@@ -111,35 +107,37 @@ void mean_shift(vector<Point> &points, vector<Point> &new_points, int lambda, bo
 
     isShifting = false;
     unsigned long points_size = points.size();
-    double distance;
-    new_points.clear();
-#pragma omp parallel firstprivate(points_size)
-    {
-#pragma  omp for schedule(static)
-        for (int i = 0; i < points_size; i++) {
-            double new_coord_x = 0.0;
-            double new_coord_y = 0.0;
-            double weight = 0.0;
-            for (int j = 0; j < points_size; j++) {
-                distance = sqrt(pow(points[j].get_coord_x() - points[i].get_coord_x(), 2) +
-                                pow(points[j].get_coord_y() - points[i].get_coord_y(), 2));
-                if (distance < lambda) {
-                    isShifting = true;
-                    new_coord_x += points[j].get_coord_x();
-                    new_coord_y += points[j].get_coord_y();
-                    weight += 1;
-                }
-            }
+  
 
-            if (weight> 0) {
-                new_coord_x /= weight;
-                new_coord_y /= weight;
-                Point pt(new_coord_x, new_coord_y);
-                new_points.push_back(pt);
+    for (int i = 0; i < points_size; i++) {
+        float new_coord_x = 0.0;
+        float new_coord_y = 0.0;
+        float weight = 0.0;
+        for (int j = 0; j < points_size; j++) {
+            if (sqrt(pow(points[j].get_coord_x() - points[i].get_coord_x(), 2) +
+                            pow(points[j].get_coord_y() - points[i].get_coord_y(), 2))<lambda){
+            
+                isShifting = true;
+                new_coord_x += points[j].get_coord_x();
+                new_coord_y += points[j].get_coord_y();
+                weight += 1;
             }
-    }
+            
+        }
+        if (weight != 0)
+        {
+            new_coord_x /= weight;
+            new_coord_y /= weight;
+        }
+        else
+        {
+            // If weight is 0, set the new coordinates to the current point's coordinates
+            new_coord_x = points[i].get_coord_x();
+            new_coord_y = points[i].get_coord_y();
+        }
+        new_points[i] = Point(new_coord_x, new_coord_y);
+}
 
-   }
 
 
 }

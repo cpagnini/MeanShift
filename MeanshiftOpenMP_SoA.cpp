@@ -19,7 +19,7 @@ int main()
 {
     auto start = std::chrono::system_clock::now();
     int num_threads = 6;
-    const string fname = "C:\\Progetti\\MeanShift\\datasets\\2D_data_1000.csv";
+    const string fname = "C:\\Progetti\\MeanShift\\datasets\\2D_data_100000.csv";
     int max_iterations = 10;
     int current_iterations = 0;
     int lambda = 1;
@@ -41,7 +41,7 @@ int main()
     double duration = chrono::duration_cast<chrono::milliseconds>(end - start).count();
 
     string output;
-    output = "Nr Threads: " + to_string(num_threads) + " Total milliseconds: " + to_string(duration) + "\n";
+    output = "SOA -Nr Threads: " + to_string(num_threads) + " Total milliseconds: " + to_string(duration) + "\n";
 
     // Open the file in output mode
     ofstream outputFile("Result.txt", ios::app);
@@ -95,7 +95,7 @@ void mean_shift(PointSoA &points, PointSoA &new_points, int lambda, bool &isShif
     {
         double new_coord_x = 0.0;
         double new_coord_y = 0.0;
-        double weight = 0.0;
+        int weight = 0;
 
         for (int j = 0; j < points.size; j++)
         {
@@ -112,6 +112,7 @@ void mean_shift(PointSoA &points, PointSoA &new_points, int lambda, bool &isShif
 
         if (weight > 0)
         {
+            //printf("%d",weight);
             new_coord_x /= weight;
             new_coord_y /= weight;
         }
