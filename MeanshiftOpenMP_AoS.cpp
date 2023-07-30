@@ -21,7 +21,7 @@ int main() {
     auto start = std::chrono::system_clock::now();
     int num_threads;
     num_threads = 6;
-    const string fname = "C:\\Progetti\\MeanShift\\datasets\\2D_data_100000.csv";
+    const string fname = "C:\\Progetti\\MeanShift\\datasets\\2D_data_10000.csv";
     int max_iterations = 10;
     int current_iterations = 0;
     int lambda = 1;
@@ -68,6 +68,24 @@ int main() {
         outputFile.close();
     }
 
+    // Save the new_pointsNonZero vector into a CSV file
+    // string outputFileName;
+    // outputFileName = "new_pointsNonZero.csv";
+    // std::ofstream outputFile(outputFileName, std::ios::app);
+    // unsigned long points_size = new_pointsNonZero.size();
+    // if (outputFile.is_open())
+    // {
+    //     for (int j = 0; j < points_size; j++)
+    //     {
+    //         outputFile << new_pointsNonZero[j].get_coord_x() << "," << new_pointsNonZero[j].get_coord_y() << "\n";
+    //     }
+    //     outputFile.close();
+    //     cout << "New points with non-zero coordinates saved to " << outputFileName << endl;
+    // }
+    // else
+    // {
+    //     cout << "Unable to open the output file " << outputFileName << endl;
+    // }
     return 0;
 }
 
